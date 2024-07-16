@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input"
-import DropDownMenu from "./(components)/DropDownMenu";
-import ToDarkModeButton from "./(components)/ToDarkModeButton";
+import DropDownMenu from "./components/DropDownMenu";
+import ThemeToggleButton from "./components/ThemeToggleButton";
 
 export default function Home() {
   return (
@@ -18,7 +18,7 @@ export default function Home() {
 
               <DropDownMenu />
 
-              <ToDarkModeButton />
+              <ThemeToggleButton />
 
             </div>
 
