@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import "./globals.css";
 
+import { Provider } from "react-redux";
+import store from "./store";
+import ReduxProvider from "./redux-provider";
 const kanit = Kanit({ weight: '500', subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -16,7 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={kanit.className}>{children}</body>
+      <body className={kanit.className}>
+        <ReduxProvider>
+          {children}
+        </ReduxProvider>
+      </body>
+
     </html>
   );
 }
