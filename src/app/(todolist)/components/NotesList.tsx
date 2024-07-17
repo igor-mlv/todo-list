@@ -17,7 +17,6 @@ function NotesList() {
         setNotesArray(updatedNotes);
     };
 
-
     return (
         <div className="w-[520px] min-h-[520px] flex flex-col mt-[50px]">
             {notesArray.map((note: { id: number, content: string, isCompleted: boolean }) => (
