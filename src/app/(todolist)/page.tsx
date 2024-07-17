@@ -12,7 +12,7 @@ export default function App() {
   return (
 
     <main className={`${isDarkMode ? 'dark' : ''}`}>
-      <div className="w-full flex justify-center items-start pt-[40px] bg-background">
+      <div className="w-full min-h-screen flex justify-center items-start pt-[40px] bg-background">
         <div className="w-full max-w-[750px]">
           <div className="w-full flex flex-col justify-start items-center">
 

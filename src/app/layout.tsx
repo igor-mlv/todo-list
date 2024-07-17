@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Kanit } from "next/font/google";
 import "./globals.css";
-
-import { Provider } from "react-redux";
-import store from "./store";
 import ReduxProvider from "./store/redux-provider";
 const kanit = Kanit({ weight: '500', subsets: ['latin'] });
 

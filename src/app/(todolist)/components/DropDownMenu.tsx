@@ -12,9 +12,14 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/app/store';
+import { toggleFilter } from '@/app/store/filterSlice';
+import { Position as PositionType, ALL_POSITION, COMPLETE_POSITION, INCOMPLETE_POSITION } from '@/app/store/filterSlice';
 
 function DropDownMenu() {
-    const [position, setPosition] = React.useState("all")
+    const position = useSelector((state: RootState) => state.filter.position);
+    const dispach = useDispatch();
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -23,10 +28,13 @@ function DropDownMenu() {
             <DropdownMenuContent className="w-56 transition-none duration-0">
                 <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-                    <DropdownMenuRadioItem value="all">All</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="complete">Complete</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="incomplete">Incomplete</DropdownMenuRadioItem>
+                <DropdownMenuRadioGroup
+                    value={position}
+                    onValueChange={(value) => dispach(toggleFilter(value as PositionType))}
+                >
+                    <DropdownMenuRadioItem value={ALL_POSITION}>All</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value={COMPLETE_POSITION}>Complete</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value={INCOMPLETE_POSITION}>Incomplete</DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
             </DropdownMenuContent>
         </DropdownMenu>

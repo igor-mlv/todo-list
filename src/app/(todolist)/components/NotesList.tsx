@@ -4,6 +4,9 @@ import { Checkbox } from "@/components/ui/checkbox"
 import NoteInput from './NoteInput'
 import { Trash2 } from 'lucide-react';
 import initialNotesArray from '@/lib/NotesArray';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/app/store';
+import { ALL_POSITION, COMPLETE_POSITION, INCOMPLETE_POSITION } from '@/app/store/filterSlice';
 
 function NotesList() {
 
@@ -17,6 +20,21 @@ function NotesList() {
         });
         setNotesArray(updatedNotes);
     };
+
+    const position = useSelector((state: RootState) => state.filter.position);
+    React.useEffect(() => {
+        if (position === COMPLETE_POSITION) {
+            const updatedNotes = notesArray.filter(note => {
+                return !note.isCompleted;
+            });
+            setNotesArray(updatedNotes);
+        } else if (position === INCOMPLETE_POSITION) {
+            const updatedNotes = notesArray.filter(note => {
+                return note.isCompleted;
+            });
+            setNotesArray(updatedNotes);
+        }
+    }, [position]);
 
     return (
         <div className="w-[520px] min-h-[520px] flex flex-col mt-[50px]">
