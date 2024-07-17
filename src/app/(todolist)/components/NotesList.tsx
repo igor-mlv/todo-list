@@ -6,6 +6,7 @@ import { Trash2 } from 'lucide-react';
 import initialNotesArray from '@/lib/NotesArray';
 
 function NotesList() {
+
     const [notesArray, setNotesArray] = React.useState(initialNotesArray);
     const handleCheckbox = (id: number) => {
         const updatedNotes = notesArray.map(note => {
@@ -29,7 +30,7 @@ function NotesList() {
 
                     <NoteInput content={note.content} className={`${!note.isCompleted && 'text-muted-foreground line-through'}`} />
 
-                    <Trash2 id={`${note.id}`} className='text-muted-foreground hover:text-destructive' />
+                    <Trash2 id={`${note.id}`} className='text-muted-foreground hover:text-destructive transition-none' />
                 </div>
             ))}
         </div>

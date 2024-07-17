@@ -20,7 +20,7 @@ function DropDownMenu() {
             <DropdownMenuTrigger asChild>
                 <Button className="w-[85px] h-[38px] text-popover text-[18px] ">Filter</Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
+            <DropdownMenuContent className="w-56 transition-none duration-0">
                 <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
