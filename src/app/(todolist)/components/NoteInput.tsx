@@ -1,8 +1,14 @@
 import { Input } from '@/components/ui/input'
 import React from 'react'
+import { cn } from "@/lib/utils"
 
-function NoteInput() {
-    const [value, setValue] = React.useState('');
+interface NoteInputProps {
+    content: string;
+    className: string;
+}
+
+function NoteInput({ content, className }: NoteInputProps) {
+    const [value, setValue] = React.useState(content);
 
     const handleOnChange = (event: { target: { value: string; }; }) => {
         setValue(event.target.value);
@@ -14,10 +20,11 @@ function NoteInput() {
     }, [value]);
     return (
         <Input
-            className="text-[20px] w-[420px] h-[20px] border-none focus-visible:ring-0 focus-visible:ring-offset-0"
+            className={cn("text-[20px] w-[420px] h-[20px] border-none focus-visible:ring-0 focus-visible:ring-offset-0", className)}
             type="text"
             placeholder="NOTE #1"
-            onChange={handleOnChange} />
+            onChange={handleOnChange}
+            value={value} />
     )
 }
 
