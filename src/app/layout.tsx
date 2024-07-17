@@ -4,7 +4,7 @@ import "./globals.css";
 
 import { Provider } from "react-redux";
 import store from "./store";
-import ReduxProvider from "./redux-provider";
+import ReduxProvider from "./store/redux-provider";
 const kanit = Kanit({ weight: '500', subsets: ['latin'] });
 
 export const metadata: Metadata = {
