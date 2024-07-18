@@ -6,66 +6,55 @@ import { Trash2 } from 'lucide-react';
 import initialNotesArray from '@/lib/NotesArray';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
-import { ALL_POSITION, COMPLETE_POSITION, INCOMPLETE_POSITION } from '@/app/store/filterSlice';
+import { ALL_POSITION, COMPLETE_POSITION } from '@/app/store/filterSlice';
 
-function NotesList() {
+interface NoteType {
+    id: number;
+    content: string;
+    isCompleted: boolean;
+};
 
-    const [notesArrayStorage, setNotesArrayStorage] = React.useState(initialNotesArray);
-    const [displayedNotes, setDisplayedNotes] = React.useState(notesArrayStorage);
+const NotesList = () => {
+
+    const notesLocalSorageRef = React.useRef(initialNotesArray);
+
+    React.useEffect(() => {
+        const savedNotes = localStorage.getItem('notes');
+        const parsedNotes = savedNotes ? JSON.parse(savedNotes) : initialNotesArray;
+        notesLocalSorageRef.current = parsedNotes;
+    }, []);
+
+    const [displayedNotes, setDisplayedNotes] = React.useState(notesLocalSorageRef.current);
+
     const handleCheckbox = (id: number) => {
-        const updatedNotes = notesArrayStorage.map(note => {
-            if (note.id === id) {
-                return { ...note, isCompleted: !note.isCompleted };
-            }
-            return note;
-        });
-        setNotesArrayStorage(updatedNotes);
+        const updatedNotes = notesLocalSorageRef.current.map((note: NoteType) =>
+            note.id === id ? { ...note, isCompleted: !note.isCompleted } : note
+        );
+        notesLocalSorageRef.current = updatedNotes;
         setDisplayedNotes(updatedNotes);
     };
 
-    React.useEffect(() => {
-        // Convert array to JSON string
-        const notesArrayJSON = JSON.stringify(notesArrayStorage);
-
-        // Save to local storage
-        localStorage.setItem('notes', notesArrayJSON);
-    }, [notesArrayStorage]);
-
     const position = useSelector((state: RootState) => state.filter.position);
     React.useEffect(() => {
-        if (position === ALL_POSITION) {
-            // Get JSON string from local storage
-            const notesArrayJSON = localStorage.getItem('notes');
-
-            // Check if the notes array exists in local storage
-            if (notesArrayJSON) {
-                // Convert JSON string back to JavaScript array
-                const notes = JSON.parse(notesArrayJSON);
-                setNotesArrayStorage(notes);
-                setDisplayedNotes(notes);
-            }
-        } else if (position === COMPLETE_POSITION) {
-            const updatedNotes = notesArrayStorage.filter(note => {
-                return !note.isCompleted;
-            });
-            setDisplayedNotes(updatedNotes);
-        } else if (position === INCOMPLETE_POSITION) {
-            const updatedNotes = notesArrayStorage.filter(note => {
-                return note.isCompleted;
-            });
-            setDisplayedNotes(updatedNotes);
-        }
-    }, [position]);
+        console.log(displayedNotes);
+        localStorage.setItem('notes', JSON.stringify(notesLocalSorageRef.current));
+        setDisplayedNotes(() => {
+            if (position === ALL_POSITION) return notesLocalSorageRef.current;
+            return notesLocalSorageRef.current.filter((note: NoteType) =>
+                position === COMPLETE_POSITION ? note.isCompleted : !note.isCompleted
+            );
+        });
+    }, [notesLocalSorageRef.current, position]);
 
     return (
         <div className="w-[520px] min-h-[520px] flex flex-col mt-[50px]">
-            {displayedNotes.map((note: { id: number, content: string, isCompleted: boolean }) => (
+            {displayedNotes.map((note: NoteType) => (
                 <div key={note.id} className="w-full h-[26px] flex flex-row justify-between items-center border-b-[1px] border-primary pb-[32px] mb-[32px]">
                     <Checkbox
                         id={`${note.id}`}
                         className='w-[26px] h-[26px]'
                         onClick={() => handleCheckbox(note.id)}
-                        checked={note.isCompleted ? false : true} />
+                        checked={note.isCompleted ? true : false} />
 
                     <NoteInput content={note.content} className={`${!note.isCompleted && 'text-muted-foreground line-through'}`} />
 
@@ -73,8 +62,8 @@ function NotesList() {
                 </div>
             ))}
         </div>
-    )
-}
+    );
+};
 
 export default NotesList;
 
