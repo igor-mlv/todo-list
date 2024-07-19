@@ -8,7 +8,7 @@ import { setNotes } from '@/app/store/notesArraySlice';
 interface NoteInputProps {
     content: string;
     className: string;
-    id: number;
+    id: string;
 }
 
 function NoteInput({ content, className, id }: NoteInputProps) {
@@ -28,7 +28,7 @@ function NoteInput({ content, className, id }: NoteInputProps) {
         <Input
             className={cn("text-[20px] w-[420px] h-[20px] border-none focus-visible:ring-0 focus-visible:ring-offset-0", className)}
             type="text"
-            placeholder="NOTE #1"
+            placeholder="Why am i empty ?"
             onChange={handleOnChange}
             value={value} />
     )

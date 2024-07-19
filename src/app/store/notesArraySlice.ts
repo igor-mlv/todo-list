@@ -1,8 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import initialNotesArray from '@/lib/notesArray';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface NoteType {
-    id: number;
+    id: string;
     content: string;
     isCompleted: boolean;
 };
@@ -22,7 +23,8 @@ const notesArraySlice = createSlice({
             return action.payload;
         },
         addNote(state, action: PayloadAction<string>) {
-            state.push({ id: state.length + 1, content: action.payload, isCompleted: false });
+            const uniqueId = uuidv4();
+            state.push({ id: uniqueId, content: action.payload, isCompleted: false });
         },
     },
 });

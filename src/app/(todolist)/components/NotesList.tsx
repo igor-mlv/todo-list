@@ -3,17 +3,11 @@ import React from 'react'
 import { Checkbox } from "@/components/ui/checkbox"
 import NoteInput from './NoteInput'
 import { Trash2 } from 'lucide-react';
-import initialNotesArray from '@/lib/notesArray';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
 import { ALL_POSITION, COMPLETE_POSITION } from '@/app/store/filterSlice';
 import { setNotes } from '@/app/store/notesArraySlice';
-
-interface NoteType {
-    id: number;
-    content: string;
-    isCompleted: boolean;
-};
+import { NoteType } from '@/app/store/notesArraySlice';
 
 const NotesList = () => {
     const notesArray = useSelector((state: RootState) => state.notesArray);
@@ -21,7 +15,7 @@ const NotesList = () => {
 
     const [displayedNotes, setDisplayedNotes] = React.useState<NoteType[]>(notesArray);
 
-    const handleCheckbox = (id: number) => {
+    const handleCheckbox = (id: string) => {
         const updatedNotes = notesArray.map((note: NoteType) =>
             note.id === id ? { ...note, isCompleted: !note.isCompleted } : note
         );
