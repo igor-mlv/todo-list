@@ -1,13 +1,20 @@
 import { Input } from '@/components/ui/input'
 import React from 'react'
 import { cn } from "@/lib/utils"
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/app/store';
+import { setNotes } from '@/app/store/notesArraySlice';
 
 interface NoteInputProps {
     content: string;
     className: string;
+    id: number;
 }
 
-function NoteInput({ content, className }: NoteInputProps) {
+function NoteInput({ content, className, id }: NoteInputProps) {
+    const notesArray = useSelector((state: RootState) => state.notesArray);
+    const dispatch = useDispatch();
+
     const [value, setValue] = React.useState(content);
 
     const handleOnChange = (event: { target: { value: string; }; }) => {
@@ -15,8 +22,7 @@ function NoteInput({ content, className }: NoteInputProps) {
     };
 
     React.useEffect(() => {
-        const timeoutId = setTimeout(() => console.log(`I can see you're not typing. I can save note: "${value}" now!`), 1000);
-        return () => clearTimeout(timeoutId);
+        dispatch(setNotes(notesArray.map((note) => note.id === id ? { ...note, content: value } : note)));
     }, [value]);
     return (
         <Input

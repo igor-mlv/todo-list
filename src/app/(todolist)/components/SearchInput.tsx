@@ -8,8 +8,9 @@ function SearchInput() {
         setValue(event.target.value);
     };
 
+    // when the input loses focus, search the note content
     React.useEffect(() => {
-        const timeoutId = setTimeout(() => console.log(`I can see you're not typing. I can search note: "${value}" now!`), 1000);
+        const timeoutId = setTimeout(() => 1000);
         return () => clearTimeout(timeoutId);
     }, [value]);
     return (
