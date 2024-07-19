@@ -1,6 +1,5 @@
 import React from 'react'
 import { Plus } from 'lucide-react';
-import * as DialogPrimitive from "@radix-ui/react-dialog"
 
 import {
     Dialog,
@@ -13,7 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useDispatch } from 'react-redux';
-import { addNote } from '@/app/store/notesArraySlice';
+import { addNote } from '@/app/store/slices/notesArraySlice';
 
 function AddNoteButton() {
     const [value, setValue] = React.useState("");

@@ -14,8 +14,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
-import { toggleFilter } from '@/app/store/filterSlice';
-import { Position as PositionType, ALL_POSITION, COMPLETE_POSITION, INCOMPLETE_POSITION } from '@/app/store/filterSlice';
+import { toggleFilter } from '@/app/store/slices/filterSlice';
+import { Position as PositionType, ALL_POSITION, COMPLETE_POSITION, INCOMPLETE_POSITION } from '@/app/store/slices/filterSlice';
 
 function DropDownMenu() {
     const position = useSelector((state: RootState) => state.filter.position);

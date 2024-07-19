@@ -3,7 +3,7 @@ import React from 'react'
 import { cn } from "@/lib/utils"
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
-import { setNotes } from '@/app/store/notesArraySlice';
+import { setNotes } from '@/app/store/slices/notesArraySlice';
 
 interface NoteInputProps {
     content: string;

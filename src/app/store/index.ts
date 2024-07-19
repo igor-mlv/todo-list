@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import themeReducer from './themeSlice';
-import filterReducer from './filterSlice';
-import notesArrayReducer from './notesArraySlice';
+import themeReducer from './slices/themeSlice';
+import filterReducer from './slices/filterSlice';
+import notesArrayReducer from './slices/notesArraySlice';
 
 const store = configureStore({
     reducer: {

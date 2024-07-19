@@ -1,6 +1,6 @@
 'use client'
 import { RootState } from "@/app/store";
-import { toggleTheme } from "@/app/store/themeSlice";
+import { toggleTheme } from "@/app/store/slices/themeSlice";
 import { Button } from "@/components/ui/button"
 import { Moon, Sun } from 'lucide-react';
 import { useDispatch, useSelector } from "react-redux";

@@ -5,9 +5,9 @@ import NoteInput from './NoteInput'
 import { Trash2 } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
-import { ALL_POSITION, COMPLETE_POSITION } from '@/app/store/filterSlice';
-import { setNotes } from '@/app/store/notesArraySlice';
-import { NoteType } from '@/app/store/notesArraySlice';
+import { ALL_POSITION, COMPLETE_POSITION } from '@/app/store/slices/filterSlice';
+import { deleteNote, updateCompletion } from '@/app/store/slices/notesArraySlice';
+import { NoteType } from '@/app/store/slices/notesArraySlice';
 
 const NotesList = () => {
     const notesArray = useSelector((state: RootState) => state.notesArray);
@@ -16,10 +16,7 @@ const NotesList = () => {
     const [displayedNotes, setDisplayedNotes] = React.useState<NoteType[]>(notesArray);
 
     const handleCheckbox = (id: string) => {
-        const updatedNotes = notesArray.map((note: NoteType) =>
-            note.id === id ? { ...note, isCompleted: !note.isCompleted } : note
-        );
-        dispatch(setNotes(updatedNotes));
+        dispatch(updateCompletion(id));
     };
 
     const position = useSelector((state: RootState) => state.filter.position);
@@ -31,6 +28,11 @@ const NotesList = () => {
             );
         });
     }, [notesArray, position]);
+
+    const handleDelete = (id: string) => {
+        dispatch(deleteNote(id));
+        console.log(notesArray);
+    }
 
     return (
         <div className="w-[520px] min-h-[520px] flex flex-col mt-[50px]">
@@ -44,7 +46,10 @@ const NotesList = () => {
 
                     <NoteInput content={note.content} id={note.id} className={`${note.isCompleted && 'text-muted-foreground line-through'}`} />
 
-                    <Trash2 id={`${note.id}`} className='text-muted-foreground hover:text-destructive transition-none' />
+                    <Trash2
+                        id={`${note.id}`}
+                        className='text-muted-foreground hover:text-destructive transition-none'
+                        onClick={() => handleDelete(note.id)} />
                 </div>
             ))}
         </div>
