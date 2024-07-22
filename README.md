@@ -1,6 +1,8 @@
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/419d68ac-14d7-42f0-ab86-bfd6efc7da67" alt="todo">
+  <img src="https://github.com/user-attachments/assets/c30befec-27cd-4e9e-9c38-29afad8cac60" alt="todo">
 </div>
+
+
 
 # TODO Project
 
