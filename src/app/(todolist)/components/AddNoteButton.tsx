@@ -47,7 +47,7 @@ function AddNoteButton() {
                         <Input
                             className="text-[20px] w-[420px] h-[38px]"
                             type="text"
-                            placeholder="Inpute your note ..."
+                            placeholder="Input your note ..."
                             onChange={handleOnChange}
                             value={value} />
                     </div>

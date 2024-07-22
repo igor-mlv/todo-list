@@ -19,6 +19,8 @@ const NotesList = () => {
         dispatch(updateCompletion(id));
     };
 
+    const searchInput = useSelector((state: RootState) => state.search.value);
+
     const position = useSelector((state: RootState) => state.filter.position);
     React.useEffect(() => {
         setDisplayedNotes(() => {
@@ -28,6 +30,12 @@ const NotesList = () => {
             );
         });
     }, [notesArray, position]);
+
+    React.useEffect(() => {
+        setDisplayedNotes(() => {
+            return notesArray.filter((note: NoteType) => note.content.toLowerCase().includes(searchInput.toLowerCase()));
+        });
+    }, [searchInput]);
 
     const handleDelete = (id: string) => {
         dispatch(deleteNote(id));

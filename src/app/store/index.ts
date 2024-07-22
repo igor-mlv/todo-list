@@ -2,12 +2,15 @@ import { configureStore } from '@reduxjs/toolkit';
 import themeReducer from './slices/themeSlice';
 import filterReducer from './slices/filterSlice';
 import notesArrayReducer from './slices/notesArraySlice';
+import searchReducer from './slices/searchSlice';
 
 const store = configureStore({
     reducer: {
         theme: themeReducer,
         filter: filterReducer,
         notesArray: notesArrayReducer,
+        search: searchReducer,
+
     },
 });
 

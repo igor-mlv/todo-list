@@ -1,5 +1,7 @@
+import searchSlice, { toggleSearch } from '@/app/store/slices/searchSlice';
 import { Input } from '@/components/ui/input'
 import React from 'react'
+import { useDispatch } from 'react-redux';
 
 function SearchInput() {
     const [value, setValue] = React.useState('');
@@ -8,11 +10,13 @@ function SearchInput() {
         setValue(event.target.value);
     };
 
-    // when the input loses focus, search the note content
+    const dispatch = useDispatch();
+
     React.useEffect(() => {
-        const timeoutId = setTimeout(() => 1000);
-        return () => clearTimeout(timeoutId);
+        dispatch(toggleSearch(value));
     }, [value]);
+
+
     return (
         <Input
             className="text-[16px] w-[595px] h-[38px] pl-2 pr-2"
