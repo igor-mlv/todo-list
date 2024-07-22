@@ -1,13 +1,18 @@
 const notesArray = [
     {
         id: "1",
-        content: "This is the first note",
+        content: "Clean desk: Find lost pen.",
         isCompleted: false,
     },
     {
         id: "2",
-        content: "This is the second note",
+        content: "Buy milk: Not orange juice!",
         isCompleted: true,
+    },
+    {
+        id: "3",
+        content: "Exercise: Fridge walk!",
+        isCompleted: false,
     },
 ];
 
