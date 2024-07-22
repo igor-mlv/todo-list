@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import initialNotesArray from '@/lib/notesArray';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface NoteType {
@@ -8,12 +7,7 @@ export interface NoteType {
     isCompleted: boolean;
 };
 
-// this is causes server error
-// server does not have localStorage 
-const savedNotes = localStorage?.getItem('notes');
-const parsedNotes = savedNotes ? JSON.parse(savedNotes) : initialNotesArray;
-
-const initialState: NoteType[] = parsedNotes;
+const initialState: NoteType[] = [];
 
 const notesArraySlice = createSlice({
     name: 'notesArray',

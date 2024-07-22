@@ -6,22 +6,24 @@ import { Trash2 } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
 import { ALL_POSITION, COMPLETE_POSITION } from '@/app/store/slices/filterSlice';
-import { deleteNote, updateCompletion } from '@/app/store/slices/notesArraySlice';
+import { deleteNote, setNotes, updateCompletion } from '@/app/store/slices/notesArraySlice';
 import { NoteType } from '@/app/store/slices/notesArraySlice';
+import initialNotesArray from '@/lib/notesArray';
 
 const NotesList = () => {
     const notesArray = useSelector((state: RootState) => state.notesArray);
+    const searchInput = useSelector((state: RootState) => state.search.value);
+    const position = useSelector((state: RootState) => state.filter.position);
     const dispatch = useDispatch();
 
     const [displayedNotes, setDisplayedNotes] = React.useState<NoteType[]>(notesArray);
 
+    // handle checkbox click
     const handleCheckbox = (id: string) => {
         dispatch(updateCompletion(id));
     };
 
-    const searchInput = useSelector((state: RootState) => state.search.value);
-
-    const position = useSelector((state: RootState) => state.filter.position);
+    // filter notes based on position
     React.useEffect(() => {
         setDisplayedNotes(() => {
             if (position === ALL_POSITION) return notesArray;
@@ -31,12 +33,21 @@ const NotesList = () => {
         });
     }, [notesArray, position]);
 
+    // filter notes based on search input
     React.useEffect(() => {
         setDisplayedNotes(() => {
             return notesArray.filter((note: NoteType) => note.content.toLowerCase().includes(searchInput.toLowerCase()));
         });
     }, [searchInput]);
 
+    // load notes from localStorage
+    React.useEffect(() => {
+        const savedNotes = localStorage?.getItem('notes');
+        const parsedNotes = savedNotes ? JSON.parse(savedNotes) : initialNotesArray;
+        dispatch(setNotes(parsedNotes));
+    }, []);
+
+    // delete note
     const handleDelete = (id: string) => {
         dispatch(deleteNote(id));
         console.log(notesArray);
